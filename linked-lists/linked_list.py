@@ -1,4 +1,5 @@
 from typing import Any
+from typing_extensions import Self
 
 
 class Node:
@@ -9,6 +10,26 @@ class Node:
 
     def __str__(self) -> str:
         return str(self.value)
+
+
+class CustomSet:
+    """Custom (quick) implementation of set in order to speed up some algorithms."""
+    def __init__(self, *args):
+        self._dict = dict()
+        for arg in args:
+            self.add(arg)
+
+    def add(self, item: Any) -> None:
+        """Add item to the set."""
+        self._dict[item] = item
+
+    def remove(self, item: Any) -> None:
+        """Remove item from the set."""
+        del self._dict[item]
+
+    def contains(self, item) -> bool:
+        """ Check whether the set contains a certain item. """
+        return item in self._dict
 
 
 class LinkedList:
@@ -32,15 +53,7 @@ class LinkedList:
             tmp_node = tmp_node.next
         return tmp_str + "]"
 
-    def print_list(self):
-        temp = self.head
-        acc = 0
-        while temp and acc < 20:
-            print(temp.value)
-            temp = temp.next
-            acc += 1
-
-    def append(self, value: Any):
+    def append(self, value: Any) -> Self:
         """Append an element to the list - returns self instance"""
         new_node = Node(value)
         if self.length == 0:
@@ -52,7 +65,7 @@ class LinkedList:
         self.length += 1
         return self
 
-    def pop(self):
+    def pop(self) -> Node | None:
         """Pop last element from the list."""
         if self.length == 0:
             return None
@@ -69,7 +82,7 @@ class LinkedList:
             self.tail = None
         return tmp
 
-    def prepend(self, value: Any):
+    def prepend(self, value: Any) -> Self:
         """Prepend an element to the list."""
         new_node = Node(value)
         if self.length == 0:
@@ -152,7 +165,7 @@ class LinkedList:
             before = tmp
             tmp = after
 
-    def reverse_recur(self, _node_ref: Node | None = None):
+    def reverse_recur(self, _node_ref: Node | None = None) -> Self:
         """Reverse the list in recurring fashion - returns reverted copy."""
         if not _node_ref:
             _node_ref = self.head
@@ -227,13 +240,74 @@ class LinkedList:
 
         for _ in range(k - j):
             # Set temp to the next node to be reversed
-            temp = current.next
+            tmp = current.next
             # Detach temp and connect current to next node
-            current.next = temp.next
+            current.next = tmp.next
             # Place temp at the beginning of the reversed section
-            temp.next = prev.next
+            tmp.next = prev.next
             # Connect temp to the part before the reversed section
-            prev.next = temp
+            prev.next = tmp
 
         # Update the head of the list if necessary
         self.head = dummy.next
+
+    def partition_list(self, x: int) -> None:
+        """
+        Partition the linked list such that all nodes with values less than x come before nodes with values greater
+        than or equal to x. Preserve the original relative order of the nodes in each of the two partitions.
+
+        You should create two new linked lists. These two linked lists will be made up of the original nodes from the
+        linked list that is being partitioned, one for nodes less than x and one for nodes greater than or equal to x.
+        None of the nodes from the linked list should be duplicated.
+        """
+        if self.length == 0:
+            return None
+        ld_list = LinkedList()
+        ge_list = LinkedList()
+
+        tmp = self.head
+        while tmp:
+            if tmp.value < x:
+                ld_list.append(tmp.value)
+            else:
+                ge_list.append(tmp.value)
+            tmp = tmp.next
+
+        # merge two lists
+        ld_list.tail.next = ge_list.head
+        # ld_list.tail = ge_list.tail
+        self.head = ld_list.head
+        self.tail = ge_list.tail
+
+    def remove_duplicates(self) -> None:
+        """
+        Removes all duplicate values from the list.
+
+        Method should not create a new list, but rather modify the existing list in-place, preserving the relative
+        order of the nodes.
+
+        You can implement the remove_duplicates() method in two different ways:
+
+        * Using a Set - This approach will have a time complexity of O(n), where n is the number of nodes in the linked
+        list. You are allowed to use the provided Set data structure in your implementation.
+
+        * Without using a Set - This approach will have a time complexity of O(n^2), where n is the number of nodes in
+        the linked list. You are not allowed to use any additional data structures for this implementation.
+        """
+        tmp_set = CustomSet()
+        prev = Node(0)
+        prev.next = self.head
+        tmp = self.head
+
+        while tmp:
+            if tmp_set.contains(tmp.value):  # O(1)
+                if tmp.next:
+                    prev.next = tmp.next
+                else:
+                    prev.next = None
+                    self.tail = prev
+                self.length -= 1
+            else:
+                prev = tmp
+            tmp_set.add(tmp.value)  # O(1)
+            tmp = tmp.next

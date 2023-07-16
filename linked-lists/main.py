@@ -67,3 +67,21 @@ if __name__ == "__main__":
     print(f"reversed list from {j}. to {k}. element:")
     linked_list.reverse_between(j, k)
     print(str(linked_list) + "\n")
+
+    k = random.randint(5, 10)
+    print(f"partition list with value of {k}:")
+    linked_list.partition_list(k)
+    print(str(linked_list) + "\n")
+
+    print(f"Remove duplicates from the list:")
+    print(f"    Adding duplicate values:")
+    linked_list.append(6)
+    linked_list.append(6)
+    linked_list.append(6)
+    linked_list.append(6)
+    print(linked_list)
+    print(f"    Removing duplicate values:")
+    linked_list.remove_duplicates()
+    print(str(linked_list) + "\n")
+
+
