@@ -3,7 +3,7 @@ from typing_extensions import Self
 
 
 class Node:
-    """Node (element) of a linked list"""
+    """Node (element) of a Linked List."""
     def __init__(self, value):
         self.value = value
         self.next = None
@@ -33,7 +33,7 @@ class CustomSet:
 
 
 class LinkedList:
-    """Linked list implemented as a vanilla python class"""
+    """Linked List implemented as a vanilla python class"""
     def __init__(self, value: Any = None):
         if value is None:
             self.head = None
@@ -45,7 +45,7 @@ class LinkedList:
             self.tail = new_node
             self.length = 1
 
-    def __str__(self):
+    def __str__(self) -> str:
         tmp_str = "["
         tmp_node = self.head
         while tmp_node:
@@ -154,7 +154,7 @@ class LinkedList:
         return tmp
 
     def reverse(self) -> None:
-        """Reverse the list."""
+        """Reverse the list (with gap)."""
         tmp = self.head
         self.head = self.tail
         self.tail = tmp

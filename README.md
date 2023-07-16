@@ -10,8 +10,14 @@ pip install -r requirements.txt
 
 ## Run examples
 
-### Linked lists
+### Linked Lists
 
 ```shell
-python linked-lists/main.py
+python 1-linked-lists/main.py
+```
+
+### Doubly Linked Lists
+
+```shell
+python 2-doubly-linked-lists/main.py
 ```
