@@ -4,7 +4,7 @@ from typing_extensions import Self
 
 class Node:
     """Node (element) of a Linked List."""
-    def __init__(self, value):
+    def __init__(self, value: Any):
         self.value = value
         self.next = None
 
@@ -33,7 +33,7 @@ class CustomSet:
 
 
 class LinkedList:
-    """Linked List implemented as a vanilla python class"""
+    """Linked List implemented as a vanilla python class."""
     def __init__(self, value: Any = None):
         if value is None:
             self.head = None
@@ -54,7 +54,7 @@ class LinkedList:
         return tmp_str + "]"
 
     def append(self, value: Any) -> Self:
-        """Append an element to the list - returns self instance"""
+        """Append an element to the list - returns self instance."""
         new_node = Node(value)
         if self.length == 0:
             self.head = new_node

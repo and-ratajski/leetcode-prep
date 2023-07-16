@@ -21,3 +21,9 @@ python 1-linked-lists/main.py
 ```shell
 python 2-doubly-linked-lists/main.py
 ```
+
+### Stacks and Queues
+
+```shell
+python 3-stacks-n-queues/main.py
+```
