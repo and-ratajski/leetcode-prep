@@ -6,13 +6,18 @@ def task_3(h: int, w: int) -> (int, int):
     Minimalize perimeter of a rectangular area of h and w. Returned values must
     be integers.
     """
+    if w == 0 or h == 0:
+        raise Exception("Fuck you!")
     area = h * w
     factors = set()
     float_solution = math.sqrt(h * w)
 
-    for value in range(int(math.sqrt(area)//2), int(math.sqrt(area)*2)):
-        if area % value == 0:
-            factors.add(value)
+    divider = 2
+    while len(factors) == 0:
+        for value in range(int(math.sqrt(area)//divider), int(math.sqrt(area)*divider)):
+            if area % value == 0:
+                factors.add(value)
+        divider *= 2
 
     smallest_diff = float(area)
     closest_factor = None
@@ -28,3 +33,4 @@ def task_3(h: int, w: int) -> (int, int):
 
 if __name__ == "__main__":
     print(task_3(216519845, 321698498))
+    print(task_3(784289477, 1))  # prime number
