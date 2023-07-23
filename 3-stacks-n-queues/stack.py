@@ -84,7 +84,7 @@ def is_balanced_parentheses(string: str) -> bool:
 
 
 def reverse_string(string: str) -> str:
-    """Return a new string with the letters in reverse order."""
+    """Return a new string with the letters in reverse order, O(n)."""
     if len(string) in [0, 1]:
         return string
 
@@ -101,39 +101,27 @@ def reverse_string(string: str) -> str:
 
 
 def sort_stack(stack: Stack) -> Stack:
-    """Sorts the elements in the stack in ascending order using only one additional stack. """
+    """Sorts stack elements in ascending order using only one additional stack, time O(n^2), space O(n)."""
     sorted_stack = Stack()
+    tmp = None
+    tmp_switch_count = -1
 
-    dup = 1  # for the first run
-    while dup > 0:
-        dup = 0
-        tmp = stack.pop().value
-        ptr = stack.top
-        while ptr:
-            if ptr.value >= tmp:
+    while tmp_switch_count != 0:
+        tmp_switch_count = 0
+        for idx in range(stack.height, 0, -1):
+            if idx == stack.height:
+                tmp = stack.pop()
+
+            if stack.peek() is None:
+                sorted_stack.push(tmp.value)
+            elif stack.peek() < tmp.value:
                 sorted_stack.push(stack.pop().value)
-                if ptr.next is None:
-                    sorted_stack.push(tmp)
-                    break
+                tmp_switch_count += 1
             else:
-                print(f"hit: {ptr.value}")
-                sorted_stack.push(tmp)
-                tmp = stack.pop().value
-                dup += 1
-                if ptr.next is None:
-                    sorted_stack.push(stack.pop().value)
-                    break
-            ptr = stack.top
+                sorted_stack.push(tmp.value)
+                tmp = stack.pop()
 
-        print("SOSertd")
-        print(sorted_stack)
-
-        while sorted_stack.height > 0:
+        for idx in range(sorted_stack.height, 0, -1):
             stack.push(sorted_stack.pop().value)
-
-        # print("stack")
-        # print(stack)
-        # print("sorted_stack")
-        # print(sorted_stack)
 
     return stack

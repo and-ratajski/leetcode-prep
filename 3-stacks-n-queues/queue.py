@@ -33,7 +33,7 @@ class Queue:
         return tmp_str + "]"
 
     def enqueue(self, value: Any) -> None:
-        """Add an element to the queue."""
+        """Add an element to the queue, O(1)."""
         new_node = Node(value)
         if self.first is None:
             self.first = new_node
@@ -45,7 +45,7 @@ class Queue:
         # return True
 
     def dequeue(self) -> Node | None:
-        """Take an element from the queue."""
+        """Take an element from the queue, O(1)."""
         if self.length == 0:
             return None
         tmp = self.first
@@ -56,4 +56,47 @@ class Queue:
             self.first = self.first.next
             tmp.next = None
         self.length -= 1
+        return tmp
+
+
+class QueueOnStacks:
+    """Queue (FIFO) implemented as two Stacks."""
+    def __init__(self):
+        self.stack_1 = []
+        self.stack_2 = []
+
+    def __str__(self) -> str:
+        tmp_str = str(self.stack_1)
+        return tmp_str.replace(", ", "|")
+
+    def is_empty(self) -> bool:
+        """Check if the queue is empty"""
+        return len(self.stack_1) == 0
+
+    def peek(self) -> Any:
+        """Peek (preview) last element."""
+        return self.stack_1[-1]
+
+    def enqueue(self, value: Any) -> None:
+        """Add an element to the queue, O(n)."""
+        if self.is_empty():
+            self.stack_1.append(value)
+            return
+
+        self.stack_2.append(value)
+        for _ in range(0, len(self.stack_1)):
+            self.stack_2.append(self.stack_1.pop())
+        for _ in range(0, len(self.stack_2)):
+            self.stack_1.append(self.stack_2.pop())
+
+    def dequeue(self) -> Any | None:
+        """Take an element from the queue, O(n)."""
+        if self.is_empty():
+            return None
+
+        for _ in range(0, len(self.stack_1)):
+            self.stack_2.append(self.stack_1.pop())
+        tmp = self.stack_2.pop()
+        for _ in range(0, len(self.stack_2)):
+            self.stack_1.append(self.stack_2.pop())
         return tmp
