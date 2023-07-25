@@ -54,7 +54,9 @@ def task_2(command_no: int, *args):
                 for index, order in enumerate(queue):
                     if order.timestamp <= check_timestamp:
                         _order_prio = int(order.prio)
-                        highest_prio = _order_prio if _order_prio > highest_prio else highest_prio
+                        highest_prio = (
+                            _order_prio if _order_prio > highest_prio else highest_prio
+                        )
                         matching_id = order.order_id
                     else:
                         del queue[index]
@@ -87,7 +89,7 @@ if __name__ == "__main__":
         "CHECK 9 PRIORITY",
         "FILL 14 bbbbbb",
         "CHECK 16 QUANTITY",
-        "CHECK 200 PRIORITY"
+        "CHECK 200 PRIORITY",
     )
 
     # command_no = input()

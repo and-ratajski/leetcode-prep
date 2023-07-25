@@ -1,5 +1,6 @@
 class DrawdawnException(Exception):
     """Custom Exception for the drawdown function."""
+
     pass
 
 

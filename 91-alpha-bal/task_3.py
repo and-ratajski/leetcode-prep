@@ -14,7 +14,9 @@ def task_3(h: int, w: int) -> (int, int):
 
     divider = 2
     while len(factors) == 0:
-        for value in range(int(math.sqrt(area)//divider), int(math.sqrt(area)*divider)):
+        for value in range(
+            int(math.sqrt(area) // divider), int(math.sqrt(area) * divider)
+        ):
             if area % value == 0:
                 factors.add(value)
         divider *= 2
@@ -28,7 +30,7 @@ def task_3(h: int, w: int) -> (int, int):
             closest_factor = factor
     if not closest_factor:
         raise Exception("Couldn't find any :(")
-    return closest_factor, int(area/closest_factor)
+    return closest_factor, int(area / closest_factor)
 
 
 if __name__ == "__main__":
