@@ -6,7 +6,8 @@ from hash_table import (
     find_duplicates,
     first_non_repeating_char,
     group_anagrams,
-    two_sum
+    two_sum,
+    two_sum_solution
 )
 
 
@@ -58,4 +59,5 @@ if __name__ == "__main__":
     array = [n for n in random.sample(range(2, 12), random.randint(2, 10))]
     target = random.randint(5, 15)
     print(f"array: {array}, target: {target}")
-    print(str(two_sum(array, target)) + "\n")
+    print(two_sum(array, target))
+    print(f"Check, {two_sum_solution(array, target)} \n")

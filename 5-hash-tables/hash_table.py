@@ -130,13 +130,23 @@ def two_sum(nums: list[int], target: int) -> list[int]:
         match = hash_table_reverted.get_item(target - key)  # noqa
         if match is not None:
             if key == target - key:  # noqa
-                # Must differentiate between [3, 3], 6 and [1,1,3], 6
+                # Must differentiate between [3, 3], 6 and [1, 1, 3], 6
                 is_duplicate = len(hash_table_normal.data_map[key]) > 1  # noqa
                 if is_duplicate:
                     return [
-                        indices[1] for indices in hash_table_normal.data_map[key] # noqa
+                        indices[1] for indices in hash_table_normal.data_map[key]  # noqa
                     ]
                 else:
                     continue
             return [match, hash_table_normal.get_item(key)]
+    return []
+
+
+def two_sum_solution(nums: list[int], target: int) -> list[int]:
+    num_map = {}
+    for i, num in enumerate(nums):
+        complement = target - num
+        if complement in num_map:
+            return [num_map[complement], i]
+        num_map[num] = i
     return []
