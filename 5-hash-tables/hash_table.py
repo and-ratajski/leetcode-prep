@@ -143,10 +143,46 @@ def two_sum(nums: list[int], target: int) -> list[int]:
 
 
 def two_sum_solution(nums: list[int], target: int) -> list[int]:
+    """Cleaner solution for `two_sum` function."""
     num_map = {}
-    for i, num in enumerate(nums):
+    for idx, num in enumerate(nums):
         complement = target - num
         if complement in num_map:
-            return [num_map[complement], i]
-        num_map[num] = i
+            return [num_map[complement], idx]
+        num_map[num] = idx
+    return []
+
+
+def subarray_sum(nums: list[int], target: int) -> list[int]:
+    """
+    Finds the indices of a contiguous subarray in nums that add up to the target sum using a hash table (dictionary).
+    """
+    subsums = dict()
+
+    for idx, num in enumerate(nums):
+        subsums[idx] = []
+        sub_idx = idx
+        while sub_idx >= 0:
+            try:
+                last_value = subsums[sub_idx][-1]
+            except IndexError:
+                last_value = 0
+            if num == target:
+                return [sub_idx, sub_idx]
+            elif last_value + num == target:
+                return [sub_idx, len(subsums[sub_idx]) + sub_idx]
+            subsums[sub_idx].append(last_value + num)
+            sub_idx -= 1
+    return []
+
+
+def subarray_sum_solution(nums: list[int], target: int) -> list[int]:
+    """Cleaner solution for `subarray_sum` function."""
+    sum_index = {0: -1}
+    current_sum = 0
+    for i, num in enumerate(nums):
+        current_sum += num
+        if current_sum - target in sum_index:
+            return [sum_index[current_sum - target] + 1, i]
+        sum_index[current_sum] = i
     return []

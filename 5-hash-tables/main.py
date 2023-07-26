@@ -7,7 +7,9 @@ from hash_table import (
     first_non_repeating_char,
     group_anagrams,
     two_sum,
-    two_sum_solution
+    two_sum_solution,
+    subarray_sum,
+    subarray_sum_solution
 )
 
 
@@ -61,3 +63,10 @@ if __name__ == "__main__":
     print(f"array: {array}, target: {target}")
     print(two_sum(array, target))
     print(f"Check, {two_sum_solution(array, target)} \n")
+
+    print("find the indices of a contiguous subarray in array that add up to the target:")
+    array = [n for n in random.sample(range(0, 10), random.randint(0, 10))]
+    target = random.randint(0, 15)
+    print(f"array: {array}, target: {target}")
+    print(subarray_sum(array, target))
+    print(f"Check, {subarray_sum_solution(array, target)} \n")
